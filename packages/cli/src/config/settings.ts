@@ -19,7 +19,11 @@ import {
 import stripJsonComments from 'strip-json-comments';
 import { DefaultLight } from '../ui/themes/default-light.js';
 import { DefaultDark } from '../ui/themes/default.js';
+<<<<<<< Updated upstream
 import { CustomTheme } from '../ui/themes/theme.js';
+=======
+import { AutopilotSettings } from '../autopilot/types.js';
+>>>>>>> Stashed changes
 
 export const SETTINGS_DIRECTORY_NAME = '.gemini';
 export const USER_SETTINGS_DIR = path.join(homedir(), SETTINGS_DIRECTORY_NAME);
@@ -100,7 +104,13 @@ export interface Settings {
 
   // Add other settings here.
   ideMode?: boolean;
+<<<<<<< Updated upstream
   memoryDiscoveryMaxDirs?: number;
+=======
+
+  // Autopilot configuration
+  autopilot?: AutopilotSettings;
+>>>>>>> Stashed changes
 }
 
 export interface SettingsError {
@@ -178,7 +188,11 @@ export class LoadedSettings {
     value: Settings[K],
   ): void {
     const settingsFile = this.forScope(scope);
+<<<<<<< Updated upstream
     settingsFile.settings[key] = value;
+=======
+    (settingsFile.settings as Record<string, unknown>)[key] = value;
+>>>>>>> Stashed changes
     this._merged = this.computeMergedSettings();
     saveSettings(settingsFile);
   }

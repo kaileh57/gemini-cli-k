@@ -130,6 +130,62 @@ export type HistoryItemCompression = HistoryItemBase & {
   compression: CompressionProps;
 };
 
+// Autopilot message types
+export type HistoryItemAutopilotStatus = HistoryItemBase & {
+  type: 'autopilot_status';
+  isRunning: boolean;
+  nextScan?: string;
+  dailyStats: {
+    attempts: number;
+    prs: number;
+    cost: number;
+  };
+  limits: {
+    totalAttempts: number;
+    totalPRs: number;
+    totalCostUSD: number;
+  };
+  queueStats: {
+    pending: number;
+    processing: number;
+    completed: number;
+  };
+  currentActivity?: {
+    description: string;
+    startTime: string;
+  };
+};
+
+export type HistoryItemAutopilotRepos = HistoryItemBase & {
+  type: 'autopilot_repos';
+  repositories: Array<{
+    id: number;
+    owner: string;
+    name: string;
+    enabled: boolean;
+    dailyAttemptLimit: number;
+    dailyPRLimit: number;
+    scoreThreshold: number;
+    todayAttempts: number;
+    todayPRs: number;
+  }>;
+};
+
+export type HistoryItemAutopilotQueue = HistoryItemBase & {
+  type: 'autopilot_queue';
+  queue: Array<{
+    id: number;
+    issueId: number;
+    priority: number;
+    status: string;
+    requestedBy: string;
+    requestedAt: string;
+    repoOwner?: string;
+    repoName?: string;
+    title?: string;
+  }>;
+};
+
 // Using Omit<HistoryItem, 'id'> seems to have some issues with typescript's
 // type inference e.g. historyItem.type === 'tool_group' isn't auto-inferring that
 // 'tools' in historyItem.
@@ -147,7 +203,10 @@ export type HistoryItemWithoutId =
   | HistoryItemModelStats
   | HistoryItemToolStats
   | HistoryItemQuit
-  | HistoryItemCompression;
+  | HistoryItemCompression
+  | HistoryItemAutopilotStatus
+  | HistoryItemAutopilotRepos
+  | HistoryItemAutopilotQueue;
 
 export type HistoryItem = HistoryItemWithoutId & { id: number };
 

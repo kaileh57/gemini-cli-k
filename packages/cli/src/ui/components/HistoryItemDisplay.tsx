@@ -21,6 +21,9 @@ import { ModelStatsDisplay } from './ModelStatsDisplay.js';
 import { ToolStatsDisplay } from './ToolStatsDisplay.js';
 import { SessionSummaryDisplay } from './SessionSummaryDisplay.js';
 import { Config } from '@google/gemini-cli-core';
+import { AutopilotStatusDisplay } from '../../autopilot/ui/AutopilotStatusDisplay.js';
+import { AutopilotReposDisplay } from '../../autopilot/ui/AutopilotReposDisplay.js';
+import { AutopilotQueueDisplay } from '../../autopilot/ui/AutopilotQueueDisplay.js';
 
 interface HistoryItemDisplayProps {
   item: HistoryItem;
@@ -87,6 +90,26 @@ export const HistoryItemDisplay: React.FC<HistoryItemDisplayProps> = ({
     )}
     {item.type === 'compression' && (
       <CompressionMessage compression={item.compression} />
+    )}
+
+    {/* Autopilot message types */}
+    {item.type === 'autopilot_status' && (
+      <AutopilotStatusDisplay
+        isRunning={item.isRunning}
+        nextScan={item.nextScan}
+        dailyStats={item.dailyStats}
+        limits={item.limits}
+        queueStats={item.queueStats}
+        currentActivity={item.currentActivity}
+      />
+    )}
+
+    {item.type === 'autopilot_repos' && (
+      <AutopilotReposDisplay repositories={item.repositories} />
+    )}
+
+    {item.type === 'autopilot_queue' && (
+      <AutopilotQueueDisplay queue={item.queue} />
     )}
   </Box>
 );
