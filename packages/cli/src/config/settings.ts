@@ -20,7 +20,11 @@ import stripJsonComments from 'strip-json-comments';
 import { DefaultLight } from '../ui/themes/default-light.js';
 import { DefaultDark } from '../ui/themes/default.js';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { CustomTheme } from '../ui/themes/theme.js';
+=======
+import { AutopilotSettings } from '../autopilot/types.js';
+>>>>>>> Stashed changes
 =======
 import { AutopilotSettings } from '../autopilot/types.js';
 >>>>>>> Stashed changes
@@ -105,7 +109,13 @@ export interface Settings {
   // Add other settings here.
   ideMode?: boolean;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   memoryDiscoveryMaxDirs?: number;
+=======
+
+  // Autopilot configuration
+  autopilot?: AutopilotSettings;
+>>>>>>> Stashed changes
 =======
 
   // Autopilot configuration
@@ -189,7 +199,11 @@ export class LoadedSettings {
   ): void {
     const settingsFile = this.forScope(scope);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     settingsFile.settings[key] = value;
+=======
+    (settingsFile.settings as Record<string, unknown>)[key] = value;
+>>>>>>> Stashed changes
 =======
     (settingsFile.settings as Record<string, unknown>)[key] = value;
 >>>>>>> Stashed changes
